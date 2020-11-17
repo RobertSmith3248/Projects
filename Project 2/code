@@ -1,0 +1,115 @@
+#name and title
+#repository link
+
+import sys
+import numpy
+from scipy.signal import find_peaks
+from matplotlib import pyplot
+import math
+
+c = open("project2_chromatograph.asc")
+lines = c.readlines()
+c.close()
+
+time = []
+#time, x-axis
+#make t a list for appending later
+absorbance = []
+#absorbance, y-axis
+#make a a list for appending later
+
+peaks = 0
+#define the variable to analyze the peaks later
+
+for line in lines[3:]:
+    #only use values below line 3 (so start at line 4)
+    #the first 3 lines are units and other logistical things that aren't relevant to the calculation
+    columns = line.split()
+    try:
+        time.append(float(columns[0]))
+        absorbance.append(float(columns[1]))
+        #turn the contents of the lists into floats instead of just a list of strings
+    except:
+        print("Parsing complete")
+        continue
+
+
+t = numpy.array(time)
+a = numpy.array(absorbance)
+
+nabs = len(absorbance)
+peaks, maximum = find_peaks(absorbance, height = 100, threshold = None, distance = 10)
+
+#set the parameters for finding the peak heights
+npeaks = len(peaks)
+
+#fig, ax = pyplot.subplots()
+
+#da = numpy.gradient(a)
+#dda = numpy.gradient(da)
+
+for n in peaks:
+    print ("There is a peak at", time[n] ,"minutes with an absorbance value of", absorbance[n] ,"mAU")
+    pyplot.xlabel('Time (min)')
+    pyplot.ylabel('Absorbance (mAU)')
+    pyplot.plot(time, absorbance, time[n], absorbance[n], 's' 'g')
+    #pyplot.plot(t,a, 'c')
+
+#ol, 'c', oi, 'c', bl, 'c', br, 'c'
+
+"""tf = float(n)
+#af = float(n)
+#dan = float(numpy.gradient(n))
+#ddan = numpy.gradient(dan)
+dtn = float(numpy.gradient(n))
+#ddtn = numpy.gradient(dtn)
+#pyplot.yticks(numpy.arange(0, 1100, 100))
+#p = pyplot.turning_points()
+ol = float(n - dtn)
+oi = float(n + dtn)
+bl = float(n - dan)
+br = float(n + dan)"""
+
+pyplot.show()
+
+#dr. stagg's example below in quotes
+#not sure what the point of the try/except loop thing
+
+"""
+t=[]
+a=[]
+for line in lines[3:]:
+	words=line.split()
+	try:
+		t.append(float(words[0]))
+		a.append(float(words[1]))
+	except:
+		print ("could not parse", line)
+		continue
+#print a
+
+t=numpy.array(t)
+a=numpy.array(a)
+
+#pyplot.xlim(0,180)
+#pyplot.ylim(0, 2000)
+da=numpy.gradient(a)
+dda=numpy.gradient(da)
+pyplot.plot(t,da)
+pyplot.plot(t,a)
+pyplot.plot(t,dda)
+
+pyplot.show()
+"""
+
+#fig, ax = pyplot.subplots()
+#ax.plot(time, absorbance)
+
+#pyplot.plot(time, absorbance)
+#pyplot.xlabel('Time (min)')
+#pyplot.ylabel('Absorbance (mAU)')
+
+#pyplot.show()
+
+#print(time)
+#print("Episode I is underrated.")
