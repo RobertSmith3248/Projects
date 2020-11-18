@@ -42,7 +42,7 @@ a = np.array(absorbance)
 peaks, maximum = find_peaks(absorbance, height = 100, threshold = None, distance = 10, prominence = 0.6)
 #identify the maximum peaks
 
-results_full = peak_widths(a, peaks, rel_height = 1)
+results_full = peak_widths(a, peaks, rel_height = 0.95)
 #measure the peak widths
 
 scaling = np.max(t)/len(t)
