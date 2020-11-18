@@ -1,0 +1,74 @@
+#Robert Smith, Project 2
+#repository: https://github.com/RobertSmith3248/Projects
+
+import sys
+import numpy as np
+from scipy.signal import find_peaks, peak_widths
+from matplotlib import pyplot as plt
+#import the needed packages
+
+c = open("project2_chromatograph.asc")
+lines = c.readlines()
+#open and read the .asc file
+c.close()
+
+time = []
+#time, x-axis
+#make t a list for appending later
+
+absorbance = []
+#absorbance, y-axis
+#make a a list for appending later
+
+peaks = 0
+#define the variable to analyze the peaks later
+
+for line in lines[3:]:
+    #only use values below line 3 (so start at line 4)
+    #the first 3 lines are units and other logistical things that aren't relevant to the calculation
+    columns = line.split()
+    try:
+        time.append(float(columns[0]))
+        absorbance.append(float(columns[1]))
+        #turn the contents of the lists into floats instead of just a list of strings
+    except:
+        print("Parsing complete")
+        continue
+
+t = np.array(time)
+a = np.array(absorbance)
+#turns the lists into arrays for use in the plotting loop
+
+peaks, maximum = find_peaks(absorbance, height = 100, threshold = None, distance = 10, prominence = 0.6)
+#identify the maximum peaks
+
+results_full = peak_widths(a, peaks, rel_height = 1)
+#measure the peak widths
+
+scaling = np.max(t)/len(t)
+#scaling to keep it within the normal range of the peaks
+#maximum divided by the length of the array
+
+plt.scatter(results_full[2] * scaling, results_full[1], color = 'r')
+#used to scale the graph and plot the correct points on the right sides of the peaks
+#without this the dots wouldn't appear at all
+
+plt.scatter(results_full[3] * scaling, results_full[1], color = 'r')
+#same as above but used for plotting points to the left of the peak
+
+for n in peaks:
+    print ("There is a peak at", time[n] ,"minutes with an absorbance value of", absorbance[n] ,"mAU")
+    #statement to return the coordinates of the 4 maxima
+    plt.xlabel('Time (min)')
+    #x-axis label
+    plt.ylabel('Absorbance (mAU)')
+    #y-axis label
+    plt.plot(time[n], absorbance[n], 's' 'g')
+    #plot the maxima only (from the print statement above)
+
+
+plt.plot(time, absorbance)
+#plot the points that aren't the maxima
+
+plt.show()
+#display the plot
