@@ -1,0 +1,27 @@
+﻿Designation,Substituent name,Hydrogen (ppm),Carbon (ppm)
+A,none,5.13,113.3
+B,thiol,4.61,114.2
+C,alcohol,4.85,167.8
+D,phosphate,4.85,167.8
+E,nitrile,5.3,102.2
+F,methyl,5.42,112.8
+G,primary amine,5.83,136.1
+H,ester,5.85,123.6
+I,acyl fluoride,5.92,132.4
+J,carboxylic acid,6.02,121.1
+K,aldehyde,6.05,133.1
+L,ketone,6.08,132.7
+M,bromine,6.1,123.5
+N,chlorine,6.11,118.4
+O,acyl bromide,6.13,132.4
+P,acyl iodide,6.13,132.4
+Q,acyl chloride,6.14,125.3
+R,iodine,6.17,82.8
+S,ether,6.25,146.8
+T,amide,6.26,123
+U,2-furan,6.41,118.7
+V,benzene ring,6.44,128.5
+W,phenol,6.44,128.5
+X,3-furan,6.44,129.7
+Y,fluorine,6.57,142.5
+Z,nitro,6.9,134.4
